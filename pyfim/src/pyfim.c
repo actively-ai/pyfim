@@ -1461,7 +1461,7 @@ static PyObject* py_fpgrowth (PyObject *self,
   CCHAR    *salgo  = "s";       /* algorithm as a string */
   int      algo    = FPG_SIMPLE;/* algorithm as an identifier */
   CCHAR    *smode  = "", *s;    /* operation mode/flags as a string */
-  int      mode    = FPG_DEFAULT;  /* operation mode/flags */
+  int      mode    = FPG_DEFAULT|FPG_VERBOSE;  /* operation mode/flags */
   long     prune   = LONG_MIN;  /* min. size for evaluation filtering */
   PyObject *border = NULL;      /* support border for filtering */
   PyObject *appear = NULL;      /* item appearance indicators */
