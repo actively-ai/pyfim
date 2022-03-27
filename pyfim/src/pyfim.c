@@ -1066,7 +1066,9 @@ static PyObject* py_fim (PyObject *self,
                         (ITEM)zmin, (ITEM)zmax,
                         eval, agg, thresh, algo, mode);
   if (!fpgrowth) { tbg_delete(tabag, 1); return ERR_MEM(); }
+  Py_BEGIN_ALLOW_THREADS
   r = fpg_data(fpgrowth, tabag, 0, +2);
+  Py_END_ALLOW_THREADS
   if (r) fpg_delete(fpgrowth,1);/* prepare data for fpgrowth */
   if (r == -1) return ERR_MEM();/* check for error and no items */
   if (r <   0) { sig_remove(); return PyList_New(0); }
@@ -1083,7 +1085,9 @@ static PyObject* py_fim (PyObject *self,
     fpg_delete(fpgrowth, 1); return ERR_MEM(); }
 
   /* --- frequent item set mining --- */
+  Py_BEGIN_ALLOW_THREADS
   r = fpg_mine(fpgrowth, ITEM_MIN, 0);
+  Py_END_ALLOW_THREADS
   if (r >= 0) r = repterm(&data, isrep, report);
 
   /* --- clean up --- */
@@ -1522,7 +1526,9 @@ static PyObject* py_fpgrowth (PyObject *self,
                         (ITEM)zmin, (ITEM)zmax,
                         eval, agg, thresh, algo, mode);
   if (!fpgrowth) { tbg_delete(tabag, 1); return ERR_MEM(); }
+  Py_BEGIN_ALLOW_THREADS
   r = fpg_data(fpgrowth, tabag, 0, +2);
+  Py_END_ALLOW_THREADS
   if (r) fpg_delete(fpgrowth,1);/* prepare data for fpgrowth */
   if (r == -1) return ERR_MEM();/* check for error and no items */
   if (r <   0) { sig_remove(); return PyList_New(0); }
@@ -1541,7 +1547,9 @@ static PyObject* py_fpgrowth (PyObject *self,
   /* --- frequent item set mining --- */
   if (prune < ITEM_MIN) prune = ITEM_MIN;
   if (prune > ITEM_MAX) prune = ITEM_MAX;
+  Py_BEGIN_ALLOW_THREADS
   r = fpg_mine(fpgrowth, (ITEM)prune, 0);
+  Py_END_ALLOW_THREADS
   if (r >= 0) r = repterm(&data, isrep, report);
 
   /* --- clean up --- */
